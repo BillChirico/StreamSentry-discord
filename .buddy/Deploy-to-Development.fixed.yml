@@ -17,10 +17,7 @@
   - action: "Build & Test"
     type: "BUILD"
     docker_image_name: "dotnet/core/sdk"
-    docker_image_tag: "3.1"
-    image_location: "PUBLIC_REGISTRY"
-    docker_registry: "OTHER"
-    registry: "mcr.microsoft.com"
+    docker_image_tag: "8.0"
     execute_commands:
     - "dotnet restore"
     - "dotnet build"
