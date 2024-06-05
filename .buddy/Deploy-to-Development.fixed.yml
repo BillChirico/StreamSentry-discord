@@ -6,8 +6,13 @@
   - type: "CREATE_REF"
     refs:
     - "refs/tags/*"
+  priority: "HIGH"
+  execution_message_template: "Development Build Pipeline"
+  fetch_all_refs: true
   fail_on_prepare_env_warning: true
+  concurrent_pipeline_runs: true
   resources: "NANO"
+  description_required: true
   actions:
   - action: "dotnet build"
     type: "BUILD"
