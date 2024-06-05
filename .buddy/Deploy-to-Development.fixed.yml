@@ -30,7 +30,7 @@
     type: "DOCKERFILE"
     login: "billchirico"
     password: "secure!74ZPqUYZNd6y+CDZ+bPxrcVtNMo9a/NFl7Sg1I/5NCP9JPlkhgBUJ4BWrgcBrJyW.8aydQYdiRy8pIVsccBpGyA=="
-    docker_image_tag: "$BUDDY_EXECUTION_REVISION_SHORT"
+    docker_image_tag: "latest"
     dockerfile_path: "StreamSentry-discord/StreamSentry.Worker/Dockerfile"
     docker_registry: "OTHER"
     repository: "billchirico/StreamSentry-dev"
