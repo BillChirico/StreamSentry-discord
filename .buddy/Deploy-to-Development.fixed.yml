@@ -20,3 +20,10 @@
     - "dotnet restore"
     - "dotnet build"
     shell: "BASH"
+  - action: "Send Discord message"
+    type: "DISCORD2"
+    trigger_time: "ON_FAILURE"
+    notification_url: "https://discord.com/api/webhooks/1247760221883990027/9J6fOTlUIup15iJkTClik2RJet5Upe7Gd8Pw5ttD66ksBW0WOPk7R7-j8oG2hFEnTBCq"
+    content: "[#$BUDDY_EXECUTION_ID] $BUDDY_PIPELINE_NAME by $BUDDY_TRIGGERING_ACTOR"
+    attachments:
+    - "{\"title\":\"Details\",\"url\":\"$BUDDY_EXECUTION_URL\",\"fields\":[{\"name\":\"Status\",\"value\":\"Failed execution\"},{\"name\":\"Revision\",\"value\":\"$BUDDY_EXECUTION_REVISION\"},{\"name\":\"Pipeline\",\"value\":\"$BUDDY_PIPELINE_NAME\"},{\"name\":\"Project\",\"value\":\"$BUDDY_PROJECT_NAME\"}]}"
