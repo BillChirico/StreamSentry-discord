@@ -33,7 +33,7 @@
     docker_image_tag: "latest"
     dockerfile_path: "StreamSentry-discord/StreamSentry.Worker/Dockerfile"
     docker_registry: "OTHER"
-    repository: "billchirico/StreamSentry-dev"
+    repository: "billchirico/StreamSentry"
     registry: "https://ghcr.io"
     do_not_prune_images: true
     provenance: "MIN"
