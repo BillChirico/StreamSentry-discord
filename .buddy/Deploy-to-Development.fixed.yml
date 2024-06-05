@@ -17,7 +17,7 @@
   - action: "Build & Test"
     type: "BUILD"
     docker_image_name: "dotnet/core/sdk"
-    docker_image_tag: "8.0"
+    docker_image_tag: "8"
     image_location: "PUBLIC_REGISTRY"
     docker_registry: "OTHER"
     registry: "mcr.microsoft.com"
