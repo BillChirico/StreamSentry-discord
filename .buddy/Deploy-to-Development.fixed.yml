@@ -36,9 +36,6 @@
     repository: "billchirico/StreamSentry-dev"
     registry: "https://ghcr.io"
     do_not_prune_images: true
-    build_args:
-    - "version=$BUDDY_EXECUTION_REF"
-    - "environment=dev"
     provenance: "MIN"
   - action: "Push Docker image"
     type: "DOCKER_PUSH"
