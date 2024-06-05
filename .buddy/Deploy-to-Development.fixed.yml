@@ -42,6 +42,7 @@
     provenance: "MIN"
   - action: "Transfer to StreamSentinel-dev"
     type: "DIGITAL_OCEAN"
+    local_path: "/StreamSentry-discord/StreamSentry-discord.sln"
     login: "root"
     host: "137.184.156.211"
     host_name: "StreamSentinel-dev"
