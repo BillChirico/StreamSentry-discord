@@ -29,7 +29,7 @@
   - action: "Build Docker image"
     type: "DOCKERFILE"
     login: "billchirico"
-    password: "secure!UGB3SADElj8uzImvhbNGk5DCaDXy3liqS4momu7mdvV3wxeSZ4l/YsEXwsViBQ+8.y0wipDMSvPJCZz6b7HUUpA=="
+    password: "secure!74ZPqUYZNd6y+CDZ+bPxrcVtNMo9a/NFl7Sg1I/5NCP9JPlkhgBUJ4BWrgcBrJyW.8aydQYdiRy8pIVsccBpGyA=="
     docker_image_tag: "latest"
     dockerfile_path: "StreamSentry-discord/StreamSentry.Worker/Dockerfile"
     docker_registry: "OTHER"
