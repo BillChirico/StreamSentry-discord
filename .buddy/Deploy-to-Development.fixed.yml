@@ -29,6 +29,7 @@
     password: "secure!Zda3oyu7gmwbgIMdrHGDIVAoG4aJaxGInqlIrLAMbC4Ukr7QUmgMd6X6nOUARGE5.++DmQ7NTSYU9vvlM7PJwDg=="
     docker_image_tag: "version-number $BUDDY_EXECUTION_REVISION,environment dev"
     dockerfile_path: ""
+    context_path: "StreamSentry-discord/StreamSentry.Worker/"
     docker_registry: "OTHER"
     repository: "billchirico/StreamSentry-dev"
     registry: "https://ghcr.io"
