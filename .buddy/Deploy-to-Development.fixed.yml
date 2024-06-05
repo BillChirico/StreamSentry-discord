@@ -18,6 +18,9 @@
     type: "BUILD"
     docker_image_name: "dotnet/core/sdk"
     docker_image_tag: "8.0"
+    image_location: "PUBLIC_REGISTRY"
+    docker_registry: "OTHER"
+    registry: "mcr.microsoft.com"
     execute_commands:
     - "dotnet restore"
     - "dotnet build"
