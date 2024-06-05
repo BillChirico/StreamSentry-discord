@@ -7,7 +7,7 @@
     refs:
     - "refs/tags/*"
   priority: "HIGH"
-  execution_message_template: "Development Build Pipeline"
+  execution_message_template: "StreamSentinel Development Build Pipeline"
   fetch_all_refs: true
   fail_on_prepare_env_warning: true
   concurrent_pipeline_runs: true
