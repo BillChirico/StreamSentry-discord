@@ -1,0 +1,10 @@
+- pipeline: "Deploy to Development"
+  events:
+  - type: "PUSH"
+    refs:
+    - "refs/heads/master"
+  - type: "CREATE_REF"
+    refs:
+    - "refs/tags/*"
+  fail_on_prepare_env_warning: true
+  resources: "NANO"
