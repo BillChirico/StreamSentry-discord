@@ -14,7 +14,7 @@
   resources: "NANO"
   description_required: true
   actions:
-  - action: "dotnet build"
+  - action: "Build & Test"
     type: "BUILD"
     docker_image_name: "dotnet/core/sdk"
     docker_image_tag: "3.1"
@@ -24,6 +24,7 @@
     execute_commands:
     - "dotnet restore"
     - "dotnet build"
+    - "dotnet test"
     shell: "BASH"
   - action: "dotnet test"
     type: "BUILD"
