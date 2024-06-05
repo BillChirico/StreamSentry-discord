@@ -14,6 +14,20 @@
   resources: "NANO"
   description_required: true
   actions:
+  - action: "Build Docker image"
+    type: "DOCKERFILE"
+    login: "billchirico"
+    password: "secure!Zda3oyu7gmwbgIMdrHGDIVAoG4aJaxGInqlIrLAMbC4Ukr7QUmgMd6X6nOUARGE5.++DmQ7NTSYU9vvlM7PJwDg=="
+    docker_image_tag: "version-number $BUDDY_EXECUTION_REVISION,environment dev"
+    dockerfile_path: ""
+    docker_registry: "OTHER"
+    repository: "billchirico/StreamSentry-dev"
+    registry: "https://ghcr.io"
+    do_not_prune_images: true
+    build_args:
+    - "version=$BUDDY_EXECUTION_REVISION"
+    - "environment=dev"
+    provenance: "MIN"
   - action: "Build & Test"
     type: "BUILD"
     docker_image_name: "dotnet/core/sdk"
