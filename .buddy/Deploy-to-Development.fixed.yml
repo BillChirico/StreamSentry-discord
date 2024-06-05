@@ -28,6 +28,7 @@
     shell: "BASH"
   - action: "Build Docker image"
     type: "DOCKERFILE"
+    disabled: true
     login: "billchirico"
     password: "secure!74ZPqUYZNd6y+CDZ+bPxrcVtNMo9a/NFl7Sg1I/5NCP9JPlkhgBUJ4BWrgcBrJyW.8aydQYdiRy8pIVsccBpGyA=="
     docker_image_tag: "latest"
