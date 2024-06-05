@@ -8,3 +8,15 @@
     - "refs/tags/*"
   fail_on_prepare_env_warning: true
   resources: "NANO"
+  actions:
+  - action: "dotnet build"
+    type: "BUILD"
+    docker_image_name: "dotnet/core/sdk"
+    docker_image_tag: "3.1"
+    image_location: "PUBLIC_REGISTRY"
+    docker_registry: "OTHER"
+    registry: "mcr.microsoft.com"
+    execute_commands:
+    - "dotnet restore"
+    - "dotnet build"
+    shell: "BASH"
