@@ -16,8 +16,8 @@
   actions:
   - action: "Build & Test"
     type: "BUILD"
-    docker_image_name: "/dotnet/sdk"
-    docker_image_tag: ":latest"
+    docker_image_name: "dotnet/sdk"
+    docker_image_tag: "latest"
     image_location: "PUBLIC_REGISTRY"
     docker_registry: "OTHER"
     registry: "mcr.microsoft.com"
