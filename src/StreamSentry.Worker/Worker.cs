@@ -2,14 +2,27 @@ namespace StreamSentry.Worker;
 
 public class Worker(ILogger<Worker> logger) : BackgroundService
 {
+    private readonly ILogger<Worker> _logger = logger;
+    private readonly IBot _bot;
+
+    public Worker(ILogger<Worker> logger, IBot bot)
+    {
+        _logger = logger;
+        _bot = bot;
+    }
+
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        while (!stoppingToken.IsCancellationRequested)
-        {
-            if (logger.IsEnabled(LogLevel.Information))
-                logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+        _logger.LogInformation("Worker is starting bot at: {time}", DateTimeOffset.Now);
+        
+        stoppingToken.Register(async () => await _bot.Stop());
+        await _bot.Start();
+    }
 
-            await Task.Delay(1000, stoppingToken);
-        }
+    public override async Task StopAsync(CancellationToken cancellationToken)
+    {
+        await _bot.Stop();
+
+        _logger.LogInformation("Worker has stopped bot at {time}", DateTimeOffset.Now);
     }
 }
