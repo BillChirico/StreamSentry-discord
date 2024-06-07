@@ -87,6 +87,6 @@ jobs:
             dotnet tool install --global dotnet-sonarscanner
             dotnet nuget add source https://www.myget.org/F/discord-net/api/v3/index.json --name DiscordNet
             export PATH="$PATH:/root/.dotnet/tools"
-            dotnet-sonarscanner begin /k:"BillChirico_StreamSentry-discord" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.branch.name="$CIRCLE_BRANCH" /d:sonar.login="188be1660109809ce5cee3e508d69ffe30db25b3" /o:"<4f7cdcb9-07fe-4418-ab60-e7596679bbc3>"
+            dotnet-sonarscanner begin /k:"BillChirico_StreamSentry-discord" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.branch.name="$CIRCLE_BRANCH" /d:sonar.login="188be1660109809ce5cee3e508d69ffe30db25b3" /d:sonar.organization"<4f7cdcb9-07fe-4418-ab60-e7596679bbc3>"
             dotnet build StreamSentry-discord/StreamSentry-discord.sln
             dotnet-sonarscanner end /d:sonar.login="188be1660109809ce5cee3e508d69ffe30db25b3"
