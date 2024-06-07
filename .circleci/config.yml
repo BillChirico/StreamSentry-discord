@@ -74,6 +74,21 @@ jobs:
   sonarqube_scan:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:8.0-alpine
+    description: Start Scan
+    parameters:
+      host_url:
+        type: string
+        default: https://sonarcloud.io
+      project_key:
+        type: string
+      sonarlogin:
+        type: string
+        default: ${SONAR_TOKEN}
+      organization:
+        type: string
+      pull_request_base:
+        type: string
+        default: develop
     steps:
       - checkout
       - run:
@@ -87,6 +102,18 @@ jobs:
             dotnet tool install --global dotnet-sonarscanner
             dotnet nuget add source https://www.myget.org/F/discord-net/api/v3/index.json --name DiscordNet
             export PATH="$PATH:/root/.dotnet/tools"
-            dotnet-sonarscanner begin /k:"BillChirico_StreamSentry-discord" /o:"4f7cdcb9-07fe-4418-ab60-e7596679bbc3" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="188be1660109809ce5cee3e508d69ffe30db25b3"
+            # dotnet-sonarscanner begin /k:"parameters.project_key" /o:"4f7cdcb9-07fe-4418-ab60-e7596679bbc3" /d:sonar.host.url="parameters.host_url" /d:sonar.login="188be1660109809ce5cee3e508d69ffe30db25b3"
+            dotnet sonarscanner begin \
+                /k:<< parameters.project_key >> \
+                /o:<< parameters.organization >> \
+                /d:sonar.login=<< parameters.sonarlogin >> \
+                /d:sonar.host.url=<< parameters.host_url >> \
+                /d:sonar.pullrequest.branch=${CIRCLE_BRANCH} \
+                /d:sonar.pullrequest.base=<< parameters.pull_request_base >> \
+                /d:sonar.pullrequest.key=${CIRCLE_PULL_REQUEST##*/}
             dotnet build StreamSentry-discord/StreamSentry-discord.sln
-            dotnet-sonarscanner end /d:sonar.login="188be1660109809ce5cee3e508d69ffe30db25b3"
+            dotnet-sonarscanner end /d:sonar.login="188be1660109809ce5cee3e508d69ffe30db25b3" mv /root/project/.sonarqube/out/.sonar/report-task.txt .scannerwork
+      - persist_to_workspace:
+          paths:
+            - .scannerwork/report-task.txt
+          root: .
