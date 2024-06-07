@@ -59,3 +59,15 @@ d
 .editorconfig,6\2\626a747c8694eaae66f2afb3d1a745b045782c70
 ^
 .src/StreamSentry.Core/StreamSentry.Core.csproj,1\a\1a16a5f8fad7eb1b05ac97206be6dfe091ce9dc5
+b
+2src/StreamSentry.Domain/StreamSentry.Domain.csproj,3\a\3a042324d15efe4ed12ed468c23f4798a2241bbe
+a
+1src/StreamSentry.Domain/Module/WhiteListedRole.cs,5\c\5c380d4bcde98d7d726443b5ac647456bc4a1b99
+h
+8src/StreamSentry.Domain/Module/StreamAnnouncerMessage.cs,f\e\fe6c190fd65d112cda353e93c64b33a6ebe2f5eb
+j
+:src/StreamSentry.Domain/ModuleSettings/StreamerSettings.cs,9\b\9bf6aaaa983c204465a7edb70080130ea1a8a35a
+i
+9src/StreamSentry.Domain/Module/StreamerChannelSettings.cs,c\3\c3e8d3d7513693bd6e3b8db6fa4a35309547652e
+h
+8src/StreamSentry.Domain/ModuleSettings/ModuleSettings.cs,b\f\bf933bb72fb378ab422f20d1837a3084da1f9115

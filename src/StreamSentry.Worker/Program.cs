@@ -14,5 +14,8 @@ builder.Services.AddSingleton<IBot, Bot>();
 // Settings
 builder.Services.AddSingleton<IDiscordSettings, DiscordSettings>();
 
+// Cache
+builder.Services.AddMemoryCache();
+
 var host = builder.Build();
 await host.RunAsync();

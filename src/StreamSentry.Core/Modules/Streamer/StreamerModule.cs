@@ -6,6 +6,8 @@ using Microsoft.Extensions.Logging;
 using StreamSentry.Core.Bot;
 using StreamSentry.Core.Modules.Common;
 using StreamSentry.Core.Utilities.Settings;
+using StreamSentry.Domain.Module;
+using StreamSentry.Domain.ModuleSettings;
 using StreamSentry.Service.ModuleSettings;
 
 namespace StreamSentry.Core.Modules.Streamer;
@@ -120,7 +122,8 @@ public class StreamerModule : Module
             if (streamingRole.Position < botRolePosition)
             {
                 // Add use to role.
-                if (guildUser.Activity != null && guildUser.Activity.Type == ActivityType.Streaming &&
+                if (guildUser.Activities.FirstOrDefault(activity => activity.Type == ActivityType.Streaming) != null &&
+                    guildUser.Activity.Type == ActivityType.Streaming &&
                     IsUserWhiteListed(settings, guildUser))
                     await AddUserToStreamingRole(guildUser, streamingRole);
 
@@ -165,7 +168,7 @@ public class StreamerModule : Module
         }
 
         // Check to make sure the user is streaming and not in the streaming list.
-        if (user.Activity != null && user.Activity.Type == ActivityType.Streaming)
+        if (user.Activities.FirstOrDefault(activity => activity.Type == ActivityType.Streaming) != null)
         {
             // If the user is not in the streaming list, they just started streaming. So, handle announcement.
             if (!StreamingList.Any(u => u.Key == user.Guild.Id && u.Value.Any(x => x.UserId == user.Id)) &&
@@ -204,23 +207,22 @@ public class StreamerModule : Module
             var announcements = new List<Task<StreamAnnouncerMessage>>();
 
             // Announce to all enabled channels in guild and store message in list.
-            foreach (var c in channels)
+            foreach (var channelId in channels.Select(channel => channel.GuildId))
             {
-                var message = new StreamAnnouncerMessage { UserId = user.Id, ChannelId = c.ChannelId };
+                var message = new StreamAnnouncerMessage { UserId = user.Id, ChannelId = channelId };
 
                 StreamingList[user.Guild.Id].Add(message);
-                announcements.Add(AnnounceUser(user, message, c.ChannelId));
+                announcements.Add(AnnounceUser(user, message, channelId));
             }
 
             var messages = await Task.WhenAll(announcements);
 
-            using (var scope = _scopeFactory.CreateScope())
-            {
-                var messageService =
-                    scope.ServiceProvider.GetRequiredService<IEntityService<StreamAnnouncerMessage>>();
+            using var scope = _scopeFactory.CreateScope();
 
-                await messageService.CreateBulk(messages);
-            }
+            var messageService =
+                scope.ServiceProvider.GetRequiredService<IEntityService<StreamAnnouncerMessage>>();
+
+            await messageService.CreateBulk(messages);
         }
         catch (Exception e)
         {
@@ -239,7 +241,7 @@ public class StreamerModule : Module
     private async Task<StreamAnnouncerMessage> AnnounceUser(SocketGuildUser user, StreamAnnouncerMessage m,
         ulong channelId)
     {
-        var streamingGame = (StreamingGame)user.Activity;
+        var streamingGame = (StreamingGame)user.Activities;
 
         // Build the embedded message.
         var embed = new EmbedBuilder()
@@ -247,7 +249,9 @@ public class StreamerModule : Module
             .WithDescription($"{streamingGame.Url} - {user.Mention}")
             .WithColor(new Color(0x4A90E2))
             .WithThumbnailUrl(user.GetAvatarUrl())
-            .AddField("Title", user.Activity.Name, true).Build();
+            .AddField("Title",
+                user.Activities.FirstOrDefault(activity => activity.Type == ActivityType.Streaming)?.Name,
+                true).Build();
 
         // Announce the user to the channel specified in settings.
         var messageData = await user.Guild.GetTextChannel(channelId)
@@ -295,13 +299,12 @@ public class StreamerModule : Module
             await Task.WhenAll(messageDeletions);
 
             // Remove streaming messages from database.
-            using (var scope = _scopeFactory.CreateScope())
-            {
-                var messageService =
-                    scope.ServiceProvider.GetRequiredService<IEntityService<StreamAnnouncerMessage>>();
+            using var scope = _scopeFactory.CreateScope();
 
-                await messageService.RemoveBulk(messages);
-            }
+            var messageService =
+                scope.ServiceProvider.GetRequiredService<IEntityService<StreamAnnouncerMessage>>();
+
+            await messageService.RemoveBulk(messages);
         }
         catch (Exception e)
         {

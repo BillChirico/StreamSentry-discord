@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace StreamSentry.Service.ModuleSettings;
 

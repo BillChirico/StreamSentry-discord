@@ -1,11 +1,13 @@
 
-scsharpsquid:S6667`"JLogging in a catch clause should pass the caught exception as a parameter.(ßÅ½ˆüÿÿÿÿ8Ý¶¦†ÿ1
-tcsharpsquid:S6667ã"JLogging in a catch clause should pass the caught exception as a parameter.(à¬Ìˆþÿÿÿÿ8Ý¶¦†ÿ1
-tcsharpsquid:S6667´"JLogging in a catch clause should pass the caught exception as a parameter.(à¬Ìˆþÿÿÿÿ8Ý¶¦†ÿ1
-xcsharpsquid:S6602Ÿ"N"Find" method should be used instead of the "FirstOrDefault" extension method.(à†ï‹þÿÿÿÿ8Ý¶¦†ÿ1
-ecsharpsquid:S2629`"<Don't use string interpolation in logging message templates.(ßÅ½ˆüÿÿÿÿ8Þ¶¦†ÿ1
-fcsharpsquid:S2629†"<Don't use string concatenation in logging message templates.(â¥™ªúÿÿÿÿ8Þ¶¦†ÿ1
-acsharpsquid:S2629ä"<Don't use string interpolation in logging message templates.(À®’¡8Þ¶¦†ÿ1
-acsharpsquid:S2629µ"<Don't use string interpolation in logging message templates.(¥÷í‚8Þ¶¦†ÿ1
-fcsharpsquid:S2629Ó"<Don't use string concatenation in logging message templates.(éÿ˜ùÿÿÿÿ8Þ¶¦†ÿ1
-fcsharpsquid:S2629à"<Don't use string concatenation in logging message templates.(€€ü‘ûÿÿÿÿ8Þ¶¦†ÿ1
+™csharpsquid:S6667b"JLogging in a catch clause should pass the caught exception as a parameter.(ßÅ½ˆüÿÿÿÿ8Ý¶¦†ÿ1J$2b7a49b8-8a24-43a3-af8f-fa01332994d1
+šcsharpsquid:S6667å"JLogging in a catch clause should pass the caught exception as a parameter.(à¬Ìˆþÿÿÿÿ8Ý¶¦†ÿ1J$84dc354f-5e10-43df-be04-3b02915b41be
+šcsharpsquid:S6667·"JLogging in a catch clause should pass the caught exception as a parameter.(à¬Ìˆþÿÿÿÿ8Ý¶¦†ÿ1J$c0dccd80-78d2-431a-bd11-0f9aece291d4
+žcsharpsquid:S6602£"N"Find" method should be used instead of the "FirstOrDefault" extension method.(à†ï‹þÿÿÿÿ8è‘‡ÿ1J$72a3e7d9-5a8e-4aac-baa7-6704e30e8470
+‹csharpsquid:S2629b"<Don't use string interpolation in logging message templates.(ßÅ½ˆüÿÿÿÿ8Þ¶¦†ÿ1J$d454eab0-0f41-4f24-9e11-ffdc6b567edf
+Œcsharpsquid:S2629‰"<Don't use string concatenation in logging message templates.(â¥™ªúÿÿÿÿ8Þ¶¦†ÿ1J$5998466a-39ae-4168-8626-a5349f6565b3
+‡csharpsquid:S2629æ"<Don't use string interpolation in logging message templates.(À®’¡8Þ¶¦†ÿ1J$06b31e84-191a-4ef6-9365-a3bc5720adfc
+Œcsharpsquid:S2629Œ"<Don't use string concatenation in logging message templates.(¹š‘Ãþÿÿÿÿ8ê÷ê†ÿ1J$ff9663b6-5862-4883-9192-a57ff01e2609
+‡csharpsquid:S2629¸"<Don't use string interpolation in logging message templates.(¥÷í‚8Þ¶¦†ÿ1J$fe3b3fd2-5aef-49c1-8119-c2d141f86e29
+‡csharpsquid:S2629Ä"<Don't use string concatenation in logging message templates.(´¨†Ù8ê÷ê†ÿ1J$eaf632e1-c5d4-4a97-b009-db653faac95b
+Œcsharpsquid:S2629Ö"<Don't use string concatenation in logging message templates.(éÿ˜ùÿÿÿÿ8Þ¶¦†ÿ1J$761cd075-c3be-4aa8-8d4e-8b9f3d399380
+Œcsharpsquid:S2629ã"<Don't use string concatenation in logging message templates.(€€ü‘ûÿÿÿÿ8Þ¶¦†ÿ1J$b2edc748-496c-4037-be21-c68030bf578b
