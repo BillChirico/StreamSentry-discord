@@ -1,0 +1,8 @@
+
+“csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(µ££Ìýÿÿÿÿ8”Íµ…ÿ1J$ee434281-94a4-43a0-aed4-e2114bc6c777
+“csharpsquid:S1104	"DMake this field 'private' and encapsulate it in a 'public' property.(é©è·ýÿÿÿÿ8•Íµ…ÿ1J$d1f35b50-ca16-45e7-bef1-95f7808d4794
+“csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(ÿÛŸ“ýÿÿÿÿ8•Íµ…ÿ1J$e7557e21-0e20-4c44-82c8-67a78c097bb5
+“csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(çÚþžùÿÿÿÿ8•Íµ…ÿ1J$625696aa-ffaf-450b-a261-d5e0de260aa9
+•csharpsquid:S2223"FChange the visibility of 'LogoColor' or make it 'const' or 'readonly'.(µ££Ìýÿÿÿÿ8•Íµ…ÿ1J$1a24889b-9d81-4890-9b54-241ae0f795df
+pcsharpsquid:S2223"GChange the visibility of 'ErrorColor' or make it 'const' or 'readonly'.(ÿÛŸ“ýÿÿÿÿ8òÃ¦†ÿ1
+šcsharpsquid:S2223"KChange the visibility of 'GuildJoinColor' or make it 'const' or 'readonly'.(çÚþžùÿÿÿÿ8•Íµ…ÿ1J$df567ffa-63ee-4c7f-b6df-35c5c5c76cd1

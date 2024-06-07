@@ -1,0 +1,11 @@
+
+scsharpsquid:S6667`"JLogging in a catch clause should pass the caught exception as a parameter.(ßÅ½ˆüÿÿÿÿ8Ý¶¦†ÿ1
+tcsharpsquid:S6667ã"JLogging in a catch clause should pass the caught exception as a parameter.(à¬Ìˆþÿÿÿÿ8Ý¶¦†ÿ1
+tcsharpsquid:S6667´"JLogging in a catch clause should pass the caught exception as a parameter.(à¬Ìˆþÿÿÿÿ8Ý¶¦†ÿ1
+xcsharpsquid:S6602Ÿ"N"Find" method should be used instead of the "FirstOrDefault" extension method.(à†ï‹þÿÿÿÿ8Ý¶¦†ÿ1
+ecsharpsquid:S2629`"<Don't use string interpolation in logging message templates.(ßÅ½ˆüÿÿÿÿ8Þ¶¦†ÿ1
+fcsharpsquid:S2629†"<Don't use string concatenation in logging message templates.(â¥™ªúÿÿÿÿ8Þ¶¦†ÿ1
+acsharpsquid:S2629ä"<Don't use string interpolation in logging message templates.(À®’¡8Þ¶¦†ÿ1
+acsharpsquid:S2629µ"<Don't use string interpolation in logging message templates.(¥÷í‚8Þ¶¦†ÿ1
+fcsharpsquid:S2629Ó"<Don't use string concatenation in logging message templates.(éÿ˜ùÿÿÿÿ8Þ¶¦†ÿ1
+fcsharpsquid:S2629à"<Don't use string concatenation in logging message templates.(€€ü‘ûÿÿÿÿ8Þ¶¦†ÿ1

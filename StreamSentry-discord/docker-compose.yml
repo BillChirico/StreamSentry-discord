@@ -1,6 +1,0 @@
-﻿services:
-  StreamSentry.worker:
-    image: StreamSentry.Worker
-    build:
-      context: .
-      dockerfile: StreamSentry.Worker/Dockerfile
