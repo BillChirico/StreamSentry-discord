@@ -7,17 +7,17 @@ public interface IDocumented
     /// <summary>
     ///     Represents the name of the documented item.
     /// </summary>
-    string Name { get; }
+    string? Name { get; }
 
     /// <summary>
     ///     Represents the version of the documented item.
     /// </summary>
-    string Version { get; }
+    string? Version { get; }
 
     /// <summary>
     ///     Provides a description of the documented item.
     /// </summary>
-    string Description { get; }
+    string? Description { get; }
 
     /// <summary>
     ///     Determines whether the documented item is configurable.

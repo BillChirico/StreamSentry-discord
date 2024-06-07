@@ -1,21 +1,14 @@
 ﻿using System.Linq.Expressions;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace StreamSentry.Service.ModuleSettings;
 
 /// <inheritdoc />
-public class ModuleSettingsService<T> : IModuleSettingsService<T> where T : Domain.ModuleSettings.ModuleSettings
+public class ModuleSettingsService<T>(IServiceScopeFactory scopeFactory, IMemoryCache cache) : IModuleSettingsService<T>
+    where T : Domain.ModuleSettings.ModuleSettings
 {
-    private readonly ICache _cache;
-    private readonly Dictionary<ulong, List<string>> _guildCacheKeys;
-    private readonly IServiceScopeFactory _scopeFactory;
-
-    public ModuleSettingsService(IServiceScopeFactory scopeFactory, ICache cache)
-    {
-        _scopeFactory = scopeFactory;
-        _cache = cache;
-        _guildCacheKeys = new Dictionary<ulong, List<string>>();
-    }
+    private readonly Dictionary<ulong, List<string>> _guildCacheKeys = new();
 
     public event EventHandler<ModuleSettingsChangedArgs<T>> SettingsChanged;
 
@@ -23,81 +16,86 @@ public class ModuleSettingsService<T> : IModuleSettingsService<T> where T : Doma
     public async Task SaveSettings(T settings)
     {
         // Create a new scope to get the db context.
-        using (var scope = _scopeFactory.CreateScope())
-        {
-            var context = scope.ServiceProvider.GetRequiredService<VolvoxHeliosContext>();
-            var guildSetting = await context.Set<T>().FirstOrDefaultAsync(s => s.GuildId == settings.GuildId);
+        using var scope = scopeFactory.CreateScope();
 
-            // Replace the setting if it already exists.
-            if (guildSetting != null)
-                context.Entry(guildSetting).CurrentValues.SetValues(settings);
+        var context = scope.ServiceProvider.GetRequiredService<VolvoxHeliosContext>();
+        var guildSetting = await context.Set<T>().FirstOrDefaultAsync(s => s.GuildId == settings.GuildId);
 
-            // Add the setting.
-            else
-                await context.AddAsync(settings);
+        // Replace the setting if it already exists.
+        if (guildSetting != null)
+            context.Entry(guildSetting).CurrentValues.SetValues(settings);
 
-            await context.SaveChangesAsync();
+        // Add the setting.
+        else
+            await context.AddAsync(settings);
 
-            // Reset all of the cache keys for the specified guild.
-            if (_guildCacheKeys.ContainsKey(settings.GuildId))
-                foreach (var cacheKey in _guildCacheKeys[settings.GuildId])
-                    _cache.WithKey(cacheKey).ClearValue();
+        await context.SaveChangesAsync();
 
-            OnSettingsChanged(settings);
-        }
+        // Reset all the cache keys for the specified guild.
+        if (_guildCacheKeys.TryGetValue(settings.GuildId, out var key))
+            foreach (var cacheKey in key)
+                cache.Remove(cacheKey);
+
+        OnSettingsChanged(settings);
     }
 
     /// <inheritdoc />
     public async Task<T> GetSettingsByGuild(ulong guildId, params Expression<Func<T, object>>[] includes)
     {
         // Create a new scope to get the db context.
-        using (var scope = _scopeFactory.CreateScope())
-        {
-            var context = scope.ServiceProvider.GetRequiredService<VolvoxHeliosContext>();
+        using var scope = scopeFactory.CreateScope();
+        var context = scope.ServiceProvider.GetRequiredService<VolvoxHeliosContext>();
 
-            // Cache the settings.
-            var cacheKey = GetCacheKey(guildId, includes);
+        // Cache the settings.
+        var cacheKey = GetCacheKey(guildId, includes);
 
-            var cachedSetting = await _cache.WithKey(cacheKey)
-                .RetrieveUsingAsync(async () =>
-                {
-                    var query = context.Set<T>().AsQueryable();
+        var cacheValue = await cache.Set(cacheKey, GetValue(guildId, includes, context),
+            new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromDays(1)));
 
-                    if (includes != null)
-                        query = includes.Aggregate(query, (current, include) => current.Include(include));
+        // Initialize new guild cache.
+        if (!_guildCacheKeys.ContainsKey(guildId))
+            _guildCacheKeys.Add(guildId, []);
 
-                    return await query.FirstOrDefaultAsync(s => s.GuildId == guildId);
-                })
-                .InvalidateIf(cachedValue => cachedValue.Value != null)
-                .ExpireAfter(TimeSpan.FromDays(1))
-                .GetValueAsync();
+        // Add cache key to the list.
+        if (!_guildCacheKeys[guildId].Contains(cacheKey))
+            _guildCacheKeys[guildId].Add(cacheKey);
 
-            // Initialize new guild cache.
-            if (!_guildCacheKeys.ContainsKey(guildId))
-                _guildCacheKeys.Add(guildId, []);
-
-            // Add cache key to the list.
-            if (!_guildCacheKeys[guildId].Contains(cacheKey))
-                _guildCacheKeys[guildId].Add(cacheKey);
-
-            return cachedSetting;
-        }
+        return (T)cacheValue.Value;
     }
 
     /// <inheritdoc />
     public async Task RemoveSetting(T settings)
     {
         // Create a new scope to get the db context.
-        using (var scope = _scopeFactory.CreateScope())
-        {
-            var context = scope.ServiceProvider.GetRequiredService<VolvoxHeliosContext>();
+        using var scope = scopeFactory.CreateScope();
+        var context = scope.ServiceProvider.GetRequiredService<VolvoxHeliosContext>();
 
-            context.Remove(settings);
+        context.Remove(settings);
 
-            await context.SaveChangesAsync();
+        await context.SaveChangesAsync();
 
-            OnSettingsChanged(settings);
-        }
+        OnSettingsChanged(settings);
+    }
+
+    /// <summary>
+    ///     Asynchronously retrieves the settings for a specific guild and includes specified navigation properties.
+    /// </summary>
+    /// <param name="guildId">The unique identifier of the guild for which settings are to be retrieved.</param>
+    /// <param name="includes">An array of lambda expressions representing navigation properties to be included in the query.</param>
+    /// <param name="context">The database context to be used for the query.</param>
+    /// <returns>A tuple containing the IQueryable query and the first or default result of the query.</returns>
+    private static async Task<(object Query, object Value)> GetValue(ulong guildId,
+        Expression<Func<T, object>>[] includes, VolvoxHeliosContext context)
+    {
+        // Create a queryable set of the generic type T.
+        var query = context.Set<T>().AsQueryable();
+
+        // If includes are provided, aggregate them into the query.
+        if (includes != null)
+            query = includes.Aggregate(query, (current, include) => current.Include(include));
+
+        // Return the query and the first or default result of the query where the guild ID matches the provided guild ID.
+        return ( query, await query.FirstOrDefaultAsync(s => s.GuildId == guildId) );
     }
 
     /// <summary>
@@ -110,7 +108,7 @@ public class ModuleSettingsService<T> : IModuleSettingsService<T> where T : Doma
     {
         var includesKey = "";
 
-        // Append all of the includes to the cache key.
+        // Append all the includes to the cache key.
         if (includes.Length > 0)
             includesKey = includes.Aggregate(includesKey, (current, include) => current + include.Body);
 

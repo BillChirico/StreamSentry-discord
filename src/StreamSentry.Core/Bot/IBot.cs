@@ -2,6 +2,7 @@
 using Discord.WebSocket;
 using Microsoft.Extensions.Logging;
 using StreamSentry.Core.Bot.Connector;
+using StreamSentry.Core.Modules.Common;
 
 namespace StreamSentry.Core.Bot;
 

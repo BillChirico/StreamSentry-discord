@@ -14,8 +14,8 @@ namespace StreamSentry.Core.Bot;
 /// </summary>
 public class Bot : IBot
 {
-    private const long VolvoxGuildId = 468467000344313866;
-    private const long VolvoxGuildLogsChannelId = 507373438051287050;
+    private const long StreamSentryGuildId = 944359910974574592;
+    private const long StreamSentryLogsChannelId = 1248495853304287252;
 
     /// <summary>
     ///     Discord bot.
@@ -23,6 +23,7 @@ public class Bot : IBot
     /// <param name="modules">List of modules for the bot.</param>
     /// <param name="settings">Settings used to connect to Discord.</param>
     /// <param name="logger">Application logger.</param>
+    /// <param name="client">Discord client used by the bot.</param>
     public Bot(IList<IModule> modules, IDiscordSettings settings, ILogger<Bot> logger, DiscordSocketClient client)
     {
         Modules = modules;
@@ -47,7 +48,7 @@ public class Bot : IBot
                 for (;;)
                 {
                     var memberCount = Client.Guilds.Sum(guild => guild.MemberCount);
-                    var version = Assembly.GetEntryAssembly().GetName().Version;
+                    var version = Assembly.GetEntryAssembly()?.GetName().Version;
 
                     await Client.SetGameAsync(
                         $"StreamSentry | {Client.Guilds.Count} servers | {memberCount} members | v{version.Major}.{version.Minor}.{version.Build}");
@@ -61,7 +62,7 @@ public class Bot : IBot
         // Announce to Volvox when the bot joins a guild.
         Client.JoinedGuild += async guild =>
         {
-            var channel = Client.GetGuild(VolvoxGuildId)?.GetTextChannel(VolvoxGuildLogsChannelId);
+            var channel = Client.GetGuild(StreamSentryGuildId)?.GetTextChannel(StreamSentryLogsChannelId);
 
             if (channel != null)
             {
@@ -74,7 +75,7 @@ public class Bot : IBot
         // Announce to Volvox when the bot leaves a guild.
         Client.LeftGuild += async guild =>
         {
-            var channel = Client.GetGuild(VolvoxGuildId)?.GetTextChannel(VolvoxGuildLogsChannelId);
+            var channel = Client.GetGuild(StreamSentryGuildId)?.GetTextChannel(StreamSentryLogsChannelId);
 
             if (channel != null)
             {
@@ -90,7 +91,6 @@ public class Bot : IBot
         Connector = new BotConnector(settings, Client);
     }
 
-    /// <inheritdoc />
     /// <summary>
     ///     List of modules for the bot.
     /// </summary>

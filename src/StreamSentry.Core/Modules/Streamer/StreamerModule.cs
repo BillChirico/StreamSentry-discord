@@ -8,6 +8,7 @@ using StreamSentry.Core.Modules.Common;
 using StreamSentry.Core.Utilities.Settings;
 using StreamSentry.Domain.Module;
 using StreamSentry.Domain.ModuleSettings;
+using StreamSentry.Service.EntityService;
 using StreamSentry.Service.ModuleSettings;
 
 namespace StreamSentry.Core.Modules.Streamer;
@@ -51,7 +52,7 @@ public class StreamerModule : Module
     {
         var settings = await _settingsService.GetSettingsByGuild(guildId);
 
-        return settings != null && settings.Enabled;
+        return settings.Enabled;
     }
 
     /// <summary>
@@ -82,7 +83,7 @@ public class StreamerModule : Module
             var settings = await _settingsService.GetSettingsByGuild(guildUser.Guild.Id, x => x.ChannelSettings,
                 x => x.WhiteListedRoleIds);
 
-            if (settings != null && settings.Enabled)
+            if (settings.Enabled)
                 try
                 {
                     // Streamer Role
@@ -90,8 +91,7 @@ public class StreamerModule : Module
                         await HandleStreamerRole(guildUser, settings);
 
                     // Stream Announcer
-                    if (settings.ChannelSettings != null)
-                        await CheckUser(guildUser, settings.ChannelSettings, settings);
+                    await CheckUser(guildUser, settings.ChannelSettings, settings);
                 }
                 catch (Exception e)
                 {
@@ -123,7 +123,6 @@ public class StreamerModule : Module
             {
                 // Add use to role.
                 if (guildUser.Activities.FirstOrDefault(activity => activity.Type == ActivityType.Streaming) != null &&
-                    guildUser.Activity.Type == ActivityType.Streaming &&
                     IsUserWhiteListed(settings, guildUser))
                     await AddUserToStreamingRole(guildUser, streamingRole);
 
@@ -235,10 +234,11 @@ public class StreamerModule : Module
     ///     Announces the users stream to channel.
     /// </summary>
     /// <param name="user">User to be announced</param>
-    /// <param name="m">Message from streaming list, this is so it's MessageId can be set.</param>
+    /// <param name="streamAnnouncerMessage">Message from streaming list, this is so it's MessageId can be set.</param>
     /// <param name="channelId">Id of the channel to announce to.</param>
     /// <returns></returns>
-    private async Task<StreamAnnouncerMessage> AnnounceUser(SocketGuildUser user, StreamAnnouncerMessage m,
+    private async Task<StreamAnnouncerMessage> AnnounceUser(SocketGuildUser user,
+        StreamAnnouncerMessage streamAnnouncerMessage,
         ulong channelId)
     {
         var streamingGame = (StreamingGame)user.Activities;
@@ -260,15 +260,16 @@ public class StreamerModule : Module
         var messageId = messageData.Id;
 
         // Sets MessageId in hashset, as hashset holds reference to the message param.
-        m.MessageId = messageId;
+        streamAnnouncerMessage.MessageId = messageId;
 
         // Sets navigation property/foreign key.
-        m.GuildId = user.Guild.Id;
+        streamAnnouncerMessage.GuildId = user.Guild.Id;
 
-        Logger.LogDebug($"Streamer Module: Announcing user {user.Username}. Guild ID: {m.GuildId}, " +
-                        $"Channel ID: {m.ChannelId}, User ID: {m.UserId}, Message ID: {m.MessageId}.");
+        Logger.LogDebug(
+            $"Streamer Module: Announcing user {user.Username}. Guild ID: {streamAnnouncerMessage.GuildId}, " +
+            $"Channel ID: {streamAnnouncerMessage.ChannelId}, User ID: {streamAnnouncerMessage.UserId}, Message ID: {streamAnnouncerMessage.MessageId}.");
 
-        return m;
+        return streamAnnouncerMessage;
     }
 
     /// <summary>
@@ -364,8 +365,8 @@ public class StreamerModule : Module
     /// <returns>True if the user is a part of the white listed roles; otherwise false.</returns>
     private static bool IsUserWhiteListed(StreamerSettings settings, SocketGuildUser guildUser)
     {
-        var whiteListedRoles = settings.WhiteListedRoleIds.Select(w => w.RoleId).ToList();
+        var whiteListedRoles = settings.WhiteListedRoleIds.Select(whiteListedRole => whiteListedRole.RoleId).ToList();
 
-        return !whiteListedRoles.Any() || guildUser.Roles.Any(r => whiteListedRoles.Contains(r.Id));
+        return whiteListedRoles.Count < 0 || guildUser.Roles.Any(role => whiteListedRoles.Contains(role.Id));
     }
 }

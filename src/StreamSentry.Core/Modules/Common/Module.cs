@@ -17,16 +17,10 @@ public abstract class Module : IModule
     /// <param name="discordSettings">Settings used to connect to Discord.</param>
     /// <param name="logger">Logger.</param>
     /// <param name="config">Application configuration.</param>
-    /// <param name="name"></param>
-    /// <param name="version"></param>
-    protected Module(IDiscordSettings discordSettings, ILogger<IModule> logger, IConfiguration config, string name,
-        string version, string description)
+    protected Module(IDiscordSettings discordSettings, ILogger<IModule> logger, IConfiguration config)
     {
         DiscordSettings = discordSettings;
         Logger = logger;
-        Name = name;
-        Version = version;
-        Description = description;
 
         var moduleName = GetType().Name;
 
@@ -94,17 +88,17 @@ public abstract class Module : IModule
     /// <summary>
     ///     Module name.
     /// </summary>
-    public string Name { get; }
+    public string? Name { get; }
 
     /// <summary>
     ///     Module version.
     /// </summary>
-    public string Version { get; }
+    public string? Version { get; }
 
     /// <summary>
     ///     Description of what the module does.
     /// </summary>
-    public string Description { get; }
+    public string? Description { get; }
 
     /// <summary>
     ///     True if you can manage configuration for the module otherwise false.
