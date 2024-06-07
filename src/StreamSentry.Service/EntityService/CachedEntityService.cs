@@ -9,7 +9,7 @@ namespace StreamSentry.Service.EntityService;
 /// </summary>
 /// <typeparam name="T"></typeparam>
 public class CachedEntityService<T>(
-    VolvoxHeliosContext context,
+    StreamSentryContext context,
     EntityChangedDispatcher<T> dispatch,
     IMemoryCache cache)
     : EntityServiceBase<T>(context, dispatch)

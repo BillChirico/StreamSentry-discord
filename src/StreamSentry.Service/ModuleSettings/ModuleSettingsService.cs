@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,7 +19,7 @@ public class ModuleSettingsService<T>(IServiceScopeFactory scopeFactory, IMemory
         // Create a new scope to get the db context.
         using var scope = scopeFactory.CreateScope();
 
-        var context = scope.ServiceProvider.GetRequiredService<VolvoxHeliosContext>();
+        var context = scope.ServiceProvider.GetRequiredService<StreamSentryContext>();
         var guildSetting = await context.Set<T>().FirstOrDefaultAsync(s => s.GuildId == settings.GuildId);
 
         // Replace the setting if it already exists.
@@ -44,7 +45,7 @@ public class ModuleSettingsService<T>(IServiceScopeFactory scopeFactory, IMemory
     {
         // Create a new scope to get the db context.
         using var scope = scopeFactory.CreateScope();
-        var context = scope.ServiceProvider.GetRequiredService<VolvoxHeliosContext>();
+        var context = scope.ServiceProvider.GetRequiredService<StreamSentryContext>();
 
         // Cache the settings.
         var cacheKey = GetCacheKey(guildId, includes);
@@ -68,7 +69,7 @@ public class ModuleSettingsService<T>(IServiceScopeFactory scopeFactory, IMemory
     {
         // Create a new scope to get the db context.
         using var scope = scopeFactory.CreateScope();
-        var context = scope.ServiceProvider.GetRequiredService<VolvoxHeliosContext>();
+        var context = scope.ServiceProvider.GetRequiredService<StreamSentryContext>();
 
         context.Remove(settings);
 
@@ -85,7 +86,7 @@ public class ModuleSettingsService<T>(IServiceScopeFactory scopeFactory, IMemory
     /// <param name="context">The database context to be used for the query.</param>
     /// <returns>A tuple containing the IQueryable query and the first or default result of the query.</returns>
     private static async Task<(object Query, object Value)> GetValue(ulong guildId,
-        Expression<Func<T, object>>[] includes, VolvoxHeliosContext context)
+        Expression<Func<T, object>>[] includes, StreamSentryContext context)
     {
         // Create a queryable set of the generic type T.
         var query = context.Set<T>().AsQueryable();
@@ -95,7 +96,7 @@ public class ModuleSettingsService<T>(IServiceScopeFactory scopeFactory, IMemory
             query = includes.Aggregate(query, (current, include) => current.Include(include));
 
         // Return the query and the first or default result of the query where the guild ID matches the provided guild ID.
-        return ( query, await query.FirstOrDefaultAsync(s => s.GuildId == guildId) );
+        return ( query, query.FirstOrDefault(s => s.GuildId == guildId) );
     }
 
     /// <summary>

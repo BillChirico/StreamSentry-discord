@@ -62,7 +62,7 @@ d
 b
 2src/StreamSentry.Domain/StreamSentry.Domain.csproj,3\a\3a042324d15efe4ed12ed468c23f4798a2241bbe
 a
-1src/StreamSentry.Domain/Module/WhiteListedRole.cs,5\c\5c380d4bcde98d7d726443b5ac647456bc4a1b99
+1src/StreamSentry.Domain/Module/WhiteListedRole.cs,5/c/5c380d4bcde98d7d726443b5ac647456bc4a1b99
 h
 8src/StreamSentry.Domain/Module/StreamAnnouncerMessage.cs,f\e\fe6c190fd65d112cda353e93c64b33a6ebe2f5eb
 j
@@ -85,3 +85,7 @@ h
 8src/StreamSentry.Service/EntityService/IEntityService.cs,2/2/224deea67781ae2bef5544ae3fd1dbbef5fb9198
 ^
 .src/StreamSentry.Worker/ConfigurationHelper.cs,f/0/f019cf080c49bf98f948070a64581607cec5ae4c
+_
+/src/StreamSentry.Service/VolvoxHeliosContext.cs,c/8/c8a5f2be63c96525c76afafd2687a1da85066001
+_
+/src/StreamSentry.Service/StreamSentryContext.cs,7/c/7cfba3a837b6c9f9d6cf3daafea1e97fe7cb6e27

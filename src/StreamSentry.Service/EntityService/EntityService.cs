@@ -13,7 +13,7 @@ public class EntityService<T> : EntityServiceBase<T>
     /// </summary>
     /// <param name="context">The Volvox.Helios context in which the service operates.</param>
     /// <param name="dispatch">A dispatcher used to trigger events when an entity is created, updated or deleted.</param>
-    public EntityService(VolvoxHeliosContext context,
+    public EntityService(StreamSentryContext context,
         EntityChangedDispatcher<T> dispatch)
         : base(context, dispatch)
     {

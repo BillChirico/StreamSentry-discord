@@ -6,14 +6,14 @@ namespace StreamSentry.Service.EntityService;
 public abstract class EntityServiceBase<T> : IEntityService<T>
     where T : class
 {
-    protected readonly VolvoxHeliosContext Context;
+    protected readonly StreamSentryContext Context;
 
     /// <summary>
     ///     Initialize a new EntityService class.
     /// </summary>
     /// <param name="context">Volvox.Helios context.</param>
     /// <param name="dispatch"></param>
-    protected EntityServiceBase(VolvoxHeliosContext context,
+    protected EntityServiceBase(StreamSentryContext context,
         EntityChangedDispatcher<T> dispatch)
     {
         Context = context;

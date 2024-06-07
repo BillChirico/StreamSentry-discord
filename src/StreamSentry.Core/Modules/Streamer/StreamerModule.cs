@@ -127,7 +127,7 @@ public class StreamerModule : Module
                     await AddUserToStreamingRole(guildUser, streamingRole);
 
                 // Remove user from role.
-                else if (guildUser.Roles.Any(r => r.Id == streamingRole.Id))
+                else if (guildUser.Roles.Any(role => role.Id == streamingRole.Id))
                     await RemoveUserFromStreamingRole(guildUser, streamingRole);
             }
             else
