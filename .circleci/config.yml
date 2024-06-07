@@ -31,8 +31,7 @@ jobs:
             export DOCKER_BRANCH="$(echo $DOCKER_BRANCH_NAME | sed 's/\//-/g')"
             export DOCKER_IMAGE_NAME="ghcr.io/billchirico/$IMAGE_NAME:$(echo $DOCKER_BRANCH)"
             mkdir image
-            ls
-            docker image build --tag "$DOCKER_IMAGE_NAME" ./StreamSentry-discord/src/StreamSentry.Worker
+            docker image build --tag "$DOCKER_IMAGE_NAME" ./src/StreamSentry.Worker
             docker image save -o "image/streamsentry${DOCKER_BRANCH}" "${DOCKER_IMAGE_NAME}"
       - persist_to_workspace:
           root: image/
