@@ -111,8 +111,7 @@ jobs:
                 /d:sonar.login=<< parameters.sonarlogin >> \
                 /d:sonar.host.url=<< parameters.host_url >> \
                 /d:sonar.pullrequest.branch=${CIRCLE_BRANCH} \
-                /d:sonar.pullrequest.base=<< parameters.pull_request_base >> \
-                /d:sonar.pullrequest.key=${CIRCLE_PULL_REQUEST##*/}
+                /d:sonar.pullrequest.base=<< parameters.pull_request_base >>
             dotnet build StreamSentry-discord/StreamSentry-discord.sln
             dotnet-sonarscanner end /d:sonar.login="188be1660109809ce5cee3e508d69ffe30db25b3" mv /root/project/.sonarqube/out/.sonar/report-task.txt .scannerwork
       - persist_to_workspace:
