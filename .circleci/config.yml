@@ -81,11 +81,13 @@ jobs:
         default: https://sonarcloud.io
       project_key:
         type: string
+        default: 01962793-a772-45be-81f6-b0b9c44d3251
       sonarlogin:
         type: string
         default: ${SONAR_TOKEN}
       organization:
         type: string
+        default: 4f7cdcb9-07fe-4418-ab60-e7596679bbc3
       pull_request_base:
         type: string
         default: develop
