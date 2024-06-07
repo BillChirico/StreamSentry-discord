@@ -1,44 +1,92 @@
-# Couldn't automatically generate a config from your source code.
-# This is a generic template to serve as a base for your custom config
-# See: https://circleci.com/docs/configuration-reference
 version: 2.1
-jobs:
-  test:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - checkout
-      # Replace this with a real test runner invocation
-      - run:
-          name: Run tests
-          command: dotnet run
-  build:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - checkout
-      # Replace this with steps to build a package, or executable
-      - run:
-          name: Build an artifact
-          command: touch example.txt
-          
-      - store_artifacts:
-          path: example.txt
-  deploy:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      # Replace this with steps to deploy to users
-      - run:
-          name: deploy
-          command: '#e.g. ./deploy.sh'
+
+orbs:
+  node: circleci/node@5.2.0
+
 workflows:
-  example:
+  build-and-deploy:
     jobs:
-      - test
-      - build:
+      - build_image
+      - sonarqube_scan
+      - hold:
+          type: approval
           requires:
-            - test
-      - deploy:
+            - build_image
+      - deploy_image:
           requires:
-            - test
+            - hold
+
+jobs:
+  build_image:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: docker24
+      - run:
+          name: Build and Save Image
+          command: |
+            export DOCKER_BRANCH_NAME="$(echo $CIRCLE_BRANCH)"
+            export DOCKER_BRANCH="$(echo $DOCKER_BRANCH_NAME | sed 's/\//-/g')"
+            export DOCKER_IMAGE_NAME="ghcr.io/billchirico/StreamSentry:$(echo $DOCKER_BRANCH)"
+            mkdir image
+            docker image build --tag "$DOCKER_IMAGE_NAME" .
+            docker image save -o "image/streamsentry${DOCKER_BRANCH}" "${DOCKER_IMAGE_NAME}"
+      - persist_to_workspace:
+          root: image/
+          paths:
+            - .
+
+  deploy_image:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - attach_workspace:
+          at: .
+      - setup_remote_docker:
+          version: docker24
+      - run:
+          name: Publish Image
+          command: |
+            export DOCKER_BRANCH="$(echo $CIRCLE_BRANCH | sed 's/\//-/g')"
+            export DOCKER_IMAGE_NAME="ghcr.io/billchirico/StreamSentry:$(echo $DOCKER_BRANCH)"
+
+            docker image load --input "streamsentry_${DOCKER_BRANCH}"
+            docker login ghcr.io -u billchirico -p $ROOT_USER
+
+            # echo Preparing Asphalt for shutdown
+            # export API_SUBDOMAIN="$(echo $DOCKER_BRANCH)"
+            # if [ "$API_SUBDOMAIN" = "development" ]; then API_SUBDOMAIN="staging.api.asphaltbot.com"; fi
+            # if [ "$API_SUBDOMAIN" = "production" ]; then API_SUBDOMAIN="api.asphaltbot.com"; fi
+
+            # if [ "$API_SUBDOMAIN" != "staging.api.asphaltbot.com" ] && [ "$API_SUBDOMAIN" != "api.asphaltbot.com" ]; then
+            #     docker push $DOCKER_IMAGE_NAME
+            #     exit 0
+            # fi
+
+            # if [ $"API_SUBDOMAIN" = "api.asphaltbot.com" ]; then
+            #     curl --connect-timeout 180 --header "X-API-Key: xxxxxxxxxxxxxxxx" https://$(echo $API_SUBDOMAIN)/v1/Developer/ShutdownPrepare?reason=a%20new%20update%20is%20about%20to%20be%20released
+            # fi
+
+            docker push $DOCKER_IMAGE_NAME
+
+  sonarqube_scan:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:8.0-alpine
+    steps:
+      - checkout
+      - run:
+          name: Install .NET Tool
+          command: |
+            apk update
+            apk upgrade
+            apk add ca-certificates
+            update-ca-certificates
+            apk add openjdk17
+            dotnet tool install --global dotnet-sonarscanner
+            dotnet nuget add source https://www.myget.org/F/discord-net/api/v3/index.json --name DiscordNet
+            export PATH="$PATH:/root/.dotnet/tools"
+            dotnet-sonarscanner begin /k:"188be1660109809ce5cee3e508d69ffe30db25b3" /d:sonar.host.url="https://qube.tg4laaron.dev" /d:sonar.branch.name="$CIRCLE_BRANCH" /d:sonar.login="188be1660109809ce5cee3e508d69ffe30db25b3"
+            dotnet build Asphalt/Asphalt.sln
+            dotnet-sonarscanner end /d:sonar.login="188be1660109809ce5cee3e508d69ffe30db25b3"
