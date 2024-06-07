@@ -108,7 +108,7 @@ jobs:
             dotnet sonarscanner begin \
                 /k:<< parameters.project_key >> \
                 /o:<< parameters.organization >> \
-                /d:sonar.login=<< parameters.sonarlogin >> \
+                /d:sonar.login="188be1660109809ce5cee3e508d69ffe30db25b3" \
                 /d:sonar.host.url=<< parameters.host_url >> \
                 /d:sonar.pullrequest.branch=${CIRCLE_BRANCH} \
                 /d:sonar.pullrequest.base=<< parameters.pull_request_base >>
