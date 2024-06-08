@@ -52,7 +52,7 @@ Dsrc/StreamSentry.Service/ModuleSettings/ModuleSettingsChangedArgs.cs,b/1/b1aea
 p
 @src/StreamSentry.Service/ModuleSettings/ModuleSettingsService.cs,a/e/ae2d47c059d05b233042d22c6ed10850d1998989
 d
-4src/StreamSentry.Service/StreamSentry.Service.csproj,5/2/526e27e4ed4416b8f994083152727f56166680dc
+4src/StreamSentry.Service/StreamSentry.Service.csproj,5\2\526e27e4ed4416b8f994083152727f56166680dc
 =
 .editorconfig,6\2\626a747c8694eaae66f2afb3d1a745b045782c70
 ^
@@ -78,7 +78,7 @@ p
 g
 7src/StreamSentry.Service/EntityService/EntityService.cs,9/c/9c01225d025e6371e72500e6ca798c91f531953e
 k
-;src/StreamSentry.Service/EntityService/EntityServiceBase.cs,3/a/3ae59118a40a96674e2e427ae6447fb5fc27be51
+;src/StreamSentry.Service/EntityService/EntityServiceBase.cs,3\a\3ae59118a40a96674e2e427ae6447fb5fc27be51
 h
 8src/StreamSentry.Service/EntityService/IEntityService.cs,2/2/224deea67781ae2bef5544ae3fd1dbbef5fb9198
 ^

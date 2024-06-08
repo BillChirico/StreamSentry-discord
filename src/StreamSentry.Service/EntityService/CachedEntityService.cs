@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 using System.Text;
-using Microsoft.Extensions.Caching.Memory;
+using FluentCache;
 
 namespace StreamSentry.Service.EntityService;
 
@@ -8,15 +8,20 @@ namespace StreamSentry.Service.EntityService;
 ///     Caching version of the standard <see cref="EntityService{T}" />.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public class CachedEntityService<T>(
-    StreamSentryContext context,
-    EntityChangedDispatcher<T> dispatch,
-    IMemoryCache cache)
-    : EntityServiceBase<T>(context, dispatch)
+public class CachedEntityService<T> : EntityServiceBase<T>
     where T : class
 {
-    private readonly IDictionary<string, IList<string>> _cacheExpressionKeys =
-        new Dictionary<string, IList<string>>();
+    private readonly ICache _cache;
+    private readonly IDictionary<string, IList<string>> _cacheExpressionKeys;
+
+    public CachedEntityService(StreamSentryContext context,
+        EntityChangedDispatcher<T> dispatch,
+        ICache cache)
+        : base(context, dispatch)
+    {
+        _cache = cache;
+        _cacheExpressionKeys = new Dictionary<string, IList<string>>();
+    }
 
     /// <summary>
     ///     Get the first entity from the cache or database that matches the primary key.
@@ -25,9 +30,7 @@ public class CachedEntityService<T>(
     /// <returns>First entity matching the primary key.</returns>
     public override Task<T> Find(params object[] keys)
     {
-        var cacheEntry = cache.Get<T>(GetCacheKey(keys));
-
-        return cache.TryGetValue(GetCacheKey(keys), out T? entity)
+        return _cache.WithKey(GetCacheKey(keys))
             .RetrieveUsingAsync(() => base.Find(keys))
             .ExpireAfter(TimeSpan.FromDays(1))
             .InvalidateIf(c => c.Value != null)
@@ -40,7 +43,7 @@ public class CachedEntityService<T>(
     {
         var key = GetCacheKey(filter, includes);
 
-        return cache.WithKey(key)
+        return _cache.WithKey(key)
             .RetrieveUsingAsync(() =>
             {
                 UpdateSubKey(key);
@@ -55,7 +58,7 @@ public class CachedEntityService<T>(
     {
         var key = GetCacheKey(null, includes);
 
-        return cache.Get(key)
+        return _cache.WithKey(key)
             .RetrieveUsingAsync(() =>
             {
                 UpdateSubKey(key);
@@ -121,12 +124,12 @@ public class CachedEntityService<T>(
         if (_cacheExpressionKeys.TryGetValue(typeName, out var subKeys))
         {
             foreach (var subKey in subKeys)
-                cache.WithKey(subKey).ClearValue();
+                _cache.WithKey(subKey).ClearValue();
 
             _cacheExpressionKeys.Remove(typeName);
         }
 
-        cache.WithKey(cacheKey).ClearValue();
+        _cache.WithKey(cacheKey).ClearValue();
     }
 
     /// <summary>
@@ -185,7 +188,7 @@ public class CachedEntityService<T>(
         if (predicate != null)
             sb.Append($"Predicate:{predicate};");
 
-        if (includes != null && includes.Any())
+        if (includes.Length != 0)
         {
             sb.Append("Includes:[");
             foreach (var include in includes)
