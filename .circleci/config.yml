@@ -29,7 +29,7 @@ jobs:
           command: |
             export DOCKER_BRANCH_NAME="$(echo $CIRCLE_BRANCH)"
             export DOCKER_BRANCH="$(echo $DOCKER_BRANCH_NAME | sed 's/\//-/g')"
-            export DOCKER_IMAGE_NAME="ghcr.io/billchirico/$IMAGE_NAME:$(echo $DOCKER_BRANCH)"
+            export DOCKER_IMAGE_NAME="ghcr.io/billchirico/streamsentryd:$(echo $DOCKER_BRANCH)"
             mkdir image
             docker image build --tag "$DOCKER_IMAGE_NAME" --file Dockerfile .
             docker image save -o "image/streamsentry_${DOCKER_BRANCH}" "${DOCKER_IMAGE_NAME}"
