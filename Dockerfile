@@ -1,9 +1,9 @@
 # Use the official .NET runtime as a parent image
-FROM mcr.microsoft.com/dotnet/runetime:6.0 AS base
+FROM mcr.microsoft.com/dotnet/runetime:8.0 AS base
 WORKDIR /app
 
 # Use the official .NET SDK as a build image
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY ["StreamSentry/StreamSentry.csproj", "StreamSentry/"]
 RUN dotnet restore "StreamSentry/StreamSentry.csproj"
