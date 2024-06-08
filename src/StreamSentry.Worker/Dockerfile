@@ -5,8 +5,8 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["StreamSentry.Worker/StreamSentry.Worker.csproj", "StreamSentry.Worker/"]
-RUN dotnet restore "StreamSentry.Worker/StreamSentry.Worker.csproj"
+COPY ["StreamSentry.Worker.csproj", "StreamSentry.Worker/"]
+RUN dotnet restore "StreamSentry.Worker.csproj"
 COPY . .
 WORKDIR "/src/StreamSentry.Worker"
 RUN dotnet build "StreamSentry.Worker.csproj" -c $BUILD_CONFIGURATION -o /app/build
