@@ -92,11 +92,10 @@ public class ModuleSettingsService<T>(IServiceScopeFactory scopeFactory, IMemory
         var query = context.Set<T>().AsQueryable();
 
         // If includes are provided, aggregate them into the query.
-        if (includes != null)
-            query = includes.Aggregate(query, (current, include) => current.Include(include));
+        query = includes.Aggregate(query, (current, include) => current.Include(include));
 
         // Return the query and the first or default result of the query where the guild ID matches the provided guild ID.
-        return ( query, query.FirstOrDefault(s => s.GuildId == guildId) );
+        return ( query, await query.FirstOrDefaultAsync(s => s.GuildId == guildId) );
     }
 
     /// <summary>
