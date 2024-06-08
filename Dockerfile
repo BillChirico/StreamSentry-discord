@@ -5,14 +5,14 @@ WORKDIR /app
 # Use the official .NET SDK as a build image
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["StreamSentry/StreamSentry.csproj", "StreamSentry/"]
-RUN dotnet restore "StreamSentry/StreamSentry.csproj"
+COPY ["StreamSentry.Worker/StreamSentry.Worker.csproj", "StreamSentry/"]
+RUN dotnet restore "StreamSentry.Worker/StreamSentry.Worker.csproj"
 COPY . .
 WORKDIR "/src/StreamSentry"
-RUN dotnet build "StreamSentry.csproj" -c Release -o /app/build
+RUN dotnet build "StreamSentry.Worker.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "StreamSentry.csproj" -c Release -o /app/publish
+RUN dotnet publish "StreamSentry.Worker.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
