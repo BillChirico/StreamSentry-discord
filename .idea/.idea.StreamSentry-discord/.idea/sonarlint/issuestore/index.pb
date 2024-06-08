@@ -4,7 +4,7 @@
 B
 docker-compose.yml,3/5/35b8c13cf2eb2a194eada000eb310d65aed53b2a
 H
-StreamSentry-discord.sln,6/4/64d54f0082b11fcf3b303b15abe4ba043728cfde
+StreamSentry-discord.sln,6\4\64d54f0082b11fcf3b303b15abe4ba043728cfde
 b
 2src/StreamSentry.Worker/StreamSentry.Worker.csproj,1\6\16c037ce8443bd799ee08b93273e3248574bfb70
 f
@@ -70,7 +70,7 @@ i
 h
 8src/StreamSentry.Domain/ModuleSettings/ModuleSettings.cs,b\f\bf933bb72fb378ab422f20d1837a3084da1f9115
 m
-=src/StreamSentry.Service/EntityService/CachedEntityService.cs,f/d/fd5b9924a7288bcce0c25f1054dd011f06e6e8ee
+=src/StreamSentry.Service/EntityService/CachedEntityService.cs,f\d\fd5b9924a7288bcce0c25f1054dd011f06e6e8ee
 q
 Asrc/StreamSentry.Service/EntityService/EntityChangedDispatcher.cs,a/d/ad9ed1ff37f4520fa593f9f7cb6a719065b8fdcb
 p
@@ -85,3 +85,5 @@ h
 .src/StreamSentry.Worker/ConfigurationHelper.cs,f/0/f019cf080c49bf98f948070a64581607cec5ae4c
 _
 /src/StreamSentry.Service/StreamSentryContext.cs,7\c\7cfba3a837b6c9f9d6cf3daafea1e97fe7cb6e27
+E
+DockerFile.dockerfile,5\a\5a110fc6ec00f41c7791d1eb9d3ae0b82bb7fe43
