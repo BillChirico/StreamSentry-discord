@@ -34,7 +34,7 @@ Q
 ^
 .src/StreamSentry.Core/Utilities/EmbedColors.cs,f\d\fd0ec888072404b92c6f84196d5810a3ebaf5012
 ]
--src/StreamSentry.Worker/StreamSentryWorker.cs,4\d\4d21bf939118f79b3f12049997d0c9348110ae0f
+-src/StreamSentry.Worker/StreamSentryWorker.cs,4/d/4d21bf939118f79b3f12049997d0c9348110ae0f
 d
 4src/StreamSentry.Core/Modules/Common/ReleaseState.cs,8\2\82acb481b667f8b2c64768d768364be96fb0efe9
 c
@@ -70,7 +70,7 @@ i
 h
 8src/StreamSentry.Domain/ModuleSettings/ModuleSettings.cs,b\f\bf933bb72fb378ab422f20d1837a3084da1f9115
 m
-=src/StreamSentry.Service/EntityService/CachedEntityService.cs,f\d\fd5b9924a7288bcce0c25f1054dd011f06e6e8ee
+=src/StreamSentry.Service/EntityService/CachedEntityService.cs,f/d/fd5b9924a7288bcce0c25f1054dd011f06e6e8ee
 q
 Asrc/StreamSentry.Service/EntityService/EntityChangedDispatcher.cs,a/d/ad9ed1ff37f4520fa593f9f7cb6a719065b8fdcb
 p
@@ -87,3 +87,5 @@ _
 /src/StreamSentry.Service/StreamSentryContext.cs,7\c\7cfba3a837b6c9f9d6cf3daafea1e97fe7cb6e27
 E
 DockerFile.dockerfile,5\a\5a110fc6ec00f41c7791d1eb9d3ae0b82bb7fe43
+[
++src/StreamSentry.Worker/modulemetadata.json,1/b/1b057a0a68f774d886ac22a6b40ae387f6fb1e2c
