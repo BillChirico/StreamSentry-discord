@@ -31,7 +31,6 @@ jobs:
             export DOCKER_BRANCH="$(echo $DOCKER_BRANCH_NAME | sed 's/\//-/g')"
             export DOCKER_IMAGE_NAME="ghcr.io/billchirico/$IMAGE_NAME:$(echo $DOCKER_BRANCH)"
             mkdir image
-            ls
             docker image build --tag "$DOCKER_IMAGE_NAME" --file Dockerfile .
             docker image save -o "image/streamsentry${DOCKER_BRANCH}" "${DOCKER_IMAGE_NAME}"
       - persist_to_workspace:
@@ -52,7 +51,7 @@ jobs:
           command: |
             export DOCKER_BRANCH="$(echo $CIRCLE_BRANCH | sed 's/\//-/g')"
             export DOCKER_IMAGE_NAME="ghcr.io/billchirico/$IMAGE_NAME:$(echo $DOCKER_BRANCH)"
-
+            echo DOCKER_BRANCH
             docker image load --input "streamsentry_${DOCKER_BRANCH}"
             docker login ghcr.io -u billchirico -p $ROOT_USER
 
