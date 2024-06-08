@@ -52,22 +52,8 @@ jobs:
             export DOCKER_BRANCH="$(echo $CIRCLE_BRANCH | sed 's/\//-/g')"
             export DOCKER_IMAGE_NAME="ghcr.io/billchirico/$IMAGE_NAME:$(echo $DOCKER_BRANCH)"
             echo DOCKER_BRANCH
-            docker image load --input "streamsentry_${DOCKER_BRANCH}"
+            docker image load --input "StreamSentry_${DOCKER_BRANCH}"
             docker login ghcr.io -u billchirico -p $GITHUB_PAT
-
-            # echo Preparing Asphalt for shutdown
-            # export API_SUBDOMAIN="$(echo $DOCKER_BRANCH)"
-            # if [ "$API_SUBDOMAIN" = "development" ]; then API_SUBDOMAIN="staging.api.asphaltbot.com"; fi
-            # if [ "$API_SUBDOMAIN" = "production" ]; then API_SUBDOMAIN="api.asphaltbot.com"; fi
-
-            # if [ "$API_SUBDOMAIN" != "staging.api.asphaltbot.com" ] && [ "$API_SUBDOMAIN" != "api.asphaltbot.com" ]; then
-            #     docker push $DOCKER_IMAGE_NAME
-            #     exit 0
-            # fi
-
-            # if [ $"API_SUBDOMAIN" = "api.asphaltbot.com" ]; then
-            #     curl --connect-timeout 180 --header "X-API-Key: xxxxxxxxxxxxxxxx" https://$(echo $API_SUBDOMAIN)/v1/Developer/ShutdownPrepare?reason=a%20new%20update%20is%20about%20to%20be%20released
-            # fi
 
             docker push $DOCKER_IMAGE_NAME
 
