@@ -17,4 +17,4 @@ RUN dotnet publish "StreamSentry.Worker.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "StreamSentry.dll"]
+ENTRYPOINT ["dotnet", "StreamSentry.Worker.dll"]
