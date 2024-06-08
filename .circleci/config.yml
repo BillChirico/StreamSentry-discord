@@ -53,7 +53,7 @@ jobs:
             export DOCKER_IMAGE_NAME="ghcr.io/billchirico/$IMAGE_NAME:$(echo $DOCKER_BRANCH)"
             echo DOCKER_BRANCH
             docker image load --input "streamsentry_${DOCKER_BRANCH}"
-            docker login ghcr.io -u billchirico -p $ROOT_USER
+            docker login ghcr.io -u billchirico -p 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
 
             # echo Preparing Asphalt for shutdown
             # export API_SUBDOMAIN="$(echo $DOCKER_BRANCH)"
