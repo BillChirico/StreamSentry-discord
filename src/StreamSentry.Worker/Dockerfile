@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 WORKDIR /app
 
 # Copy csproj and restore dependencies
-COPY /src/StreamSentry.Worker.csproj ./
+COPY StreamSentry.Worker.csproj ./
 RUN dotnet restore
 
 # Copy the rest of the project files
