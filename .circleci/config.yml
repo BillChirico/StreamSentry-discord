@@ -32,7 +32,7 @@ jobs:
             export DOCKER_IMAGE_NAME="ghcr.io/billchirico/$IMAGE_NAME:$(echo $DOCKER_BRANCH)"
             mkdir image
             ls
-            docker image build --tag "$DOCKER_IMAGE_NAME" Dockerfile
+            docker image build --tag "$DOCKER_IMAGE_NAME" ./Dockerfile
             docker image save -o "image/streamsentry${DOCKER_BRANCH}" "${DOCKER_IMAGE_NAME}"
       - persist_to_workspace:
           root: image/
