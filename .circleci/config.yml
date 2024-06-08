@@ -52,7 +52,7 @@ jobs:
             export DOCKER_BRANCH="$(echo $CIRCLE_BRANCH | sed 's/\//-/g')"
             export DOCKER_IMAGE_NAME="ghcr.io/billchirico/$IMAGE_NAME:$(echo $DOCKER_BRANCH)"
             echo DOCKER_BRANCH
-            docker image load --input "StreamSentry_${DOCKER_BRANCH}"
+            docker image load --input "streamsentry_${DOCKER_BRANCH}"
             docker login ghcr.io -u billchirico -p $GITHUB_PAT
 
             docker push $DOCKER_IMAGE_NAME
