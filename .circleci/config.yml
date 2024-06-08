@@ -29,7 +29,7 @@ jobs:
           command: |
             export DOCKER_BRANCH_NAME="$(echo $CIRCLE_BRANCH)"
             export DOCKER_BRANCH="$(echo $DOCKER_BRANCH_NAME | sed 's/\//-/g')"
-            export DOCKER_IMAGE_NAME="ghcr.io/billchirico/streamsentryd:$(echo $DOCKER_BRANCH)"
+            export DOCKER_IMAGE_NAME="ghcr.io/billchirico/$IMAGE_NAME:$(echo $DOCKER_BRANCH)"
             mkdir image
             docker image build --tag "$DOCKER_IMAGE_NAME" --file Dockerfile .
             docker image save -o "image/streamsentry_${DOCKER_BRANCH}" "${DOCKER_IMAGE_NAME}"
@@ -93,7 +93,7 @@ jobs:
             # dotnet-sonarscanner begin /k:"parameters.project_key" /o:"4f7cdcb9-07fe-4418-ab60-e7596679bbc3" /d:sonar.host.url="parameters.host_url" /d:sonar.login="188be1660109809ce5cee3e508d69ffe30db25b3"
             dotnet sonarscanner begin \
                 /k:<< parameters.project_key >> \
-                /o:<< parameters.organization >> \
+                /o:"4f7cdcb9-07fe-4418-ab60-e7596679bbc3" \
                 /d:sonar.login="188be1660109809ce5cee3e508d69ffe30db25b3" \
                 /d:sonar.host.url=<< parameters.host_url >> \
                 /d:sonar.pullrequest.branch=${CIRCLE_BRANCH} \
