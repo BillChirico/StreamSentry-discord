@@ -1,5 +1,5 @@
 # Use the official .NET runtime as a parent image
-FROM mcr.microsoft.com/dotnet/runetime:8.0 AS base
+FROM mcr.microsoft.com/dotnet/runtime:8.0 AS base
 WORKDIR /app
 
 # Use the official .NET SDK as a build image
