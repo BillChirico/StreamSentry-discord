@@ -10,9 +10,7 @@ b
 f
 6src/StreamSentry.Worker/Properties/launchSettings.json,6/4/640964a64d81ac0d9a3d185e44c1afa2134ee6e2
 R
-"src/StreamSentry.Worker/Dockerfile,2/f/2f82756c18dd7ebaa816108a778ecacb28c7784c
-Q
-!src/StreamSentry.Worker/Worker.cs,6\a\6a9fb7bc80c75671a13c11ae1000e4e8b8c7f414
+"src/StreamSentry.Worker/Dockerfile,2\f\2f82756c18dd7ebaa816108a778ecacb28c7784c
 X
 (src/StreamSentry.Worker/appsettings.json,d/e/de22099c7093f50f5d9506d5d46364ac8ea7c9cd
 d
@@ -46,7 +44,7 @@ _
 ^
 .src/StreamSentry.Core/Modules/Common/Module.cs,2/6/26af347f04975eabb3ec27a0771c3f76790b3d41
 h
-8src/StreamSentry.Core/Modules/Streamer/StreamerModule.cs,e/b/eb9206b83564b754acc8cc5f484c06e1ef52cfcb
+8src/StreamSentry.Core/Modules/Streamer/StreamerModule.cs,e\b\eb9206b83564b754acc8cc5f484c06e1ef52cfcb
 q
 Asrc/StreamSentry.Service/ModuleSettings/IModuleSettingsService.cs,1/2/12600d6f11e01167a104e76334cb5255d2490ce0
 t
@@ -62,15 +60,15 @@ d
 b
 2src/StreamSentry.Domain/StreamSentry.Domain.csproj,3\a\3a042324d15efe4ed12ed468c23f4798a2241bbe
 a
-1src/StreamSentry.Domain/Module/WhiteListedRole.cs,5/c/5c380d4bcde98d7d726443b5ac647456bc4a1b99
+1src/StreamSentry.Domain/Module/WhiteListedRole.cs,5\c\5c380d4bcde98d7d726443b5ac647456bc4a1b99
 h
 8src/StreamSentry.Domain/Module/StreamAnnouncerMessage.cs,f\e\fe6c190fd65d112cda353e93c64b33a6ebe2f5eb
 j
-:src/StreamSentry.Domain/ModuleSettings/StreamerSettings.cs,9/b/9bf6aaaa983c204465a7edb70080130ea1a8a35a
+:src/StreamSentry.Domain/ModuleSettings/StreamerSettings.cs,9\b\9bf6aaaa983c204465a7edb70080130ea1a8a35a
 i
-9src/StreamSentry.Domain/Module/StreamerChannelSettings.cs,c/3/c3e8d3d7513693bd6e3b8db6fa4a35309547652e
+9src/StreamSentry.Domain/Module/StreamerChannelSettings.cs,c\3\c3e8d3d7513693bd6e3b8db6fa4a35309547652e
 h
-8src/StreamSentry.Domain/ModuleSettings/ModuleSettings.cs,b/f/bf933bb72fb378ab422f20d1837a3084da1f9115
+8src/StreamSentry.Domain/ModuleSettings/ModuleSettings.cs,b\f\bf933bb72fb378ab422f20d1837a3084da1f9115
 m
 =src/StreamSentry.Service/EntityService/CachedEntityService.cs,f/d/fd5b9924a7288bcce0c25f1054dd011f06e6e8ee
 q
@@ -86,6 +84,4 @@ h
 ^
 .src/StreamSentry.Worker/ConfigurationHelper.cs,f/0/f019cf080c49bf98f948070a64581607cec5ae4c
 _
-/src/StreamSentry.Service/VolvoxHeliosContext.cs,c/8/c8a5f2be63c96525c76afafd2687a1da85066001
-_
-/src/StreamSentry.Service/StreamSentryContext.cs,7/c/7cfba3a837b6c9f9d6cf3daafea1e97fe7cb6e27
+/src/StreamSentry.Service/StreamSentryContext.cs,7\c\7cfba3a837b6c9f9d6cf3daafea1e97fe7cb6e27

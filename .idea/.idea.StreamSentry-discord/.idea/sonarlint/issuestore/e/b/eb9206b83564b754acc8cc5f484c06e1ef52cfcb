@@ -1,0 +1,15 @@
+
+˜csharpsquid:S3981ò"MThe 'Count' of 'ICollection' always evaluates as 'False' regardless the size.(²®¶ò8¢¢£©ÿ1J$b52f8189-753a-4ead-a2f6-7ecd2614a5b5
+™csharpsquid:S6667b"JLogging in a catch clause should pass the caught exception as a parameter.(ßÅ½ˆüÿÿÿÿ8©¢£©ÿ1J$17eb6ec1-741a-46fc-a375-d11a7a518d40
+šcsharpsquid:S6667ä"JLogging in a catch clause should pass the caught exception as a parameter.(à¬Ìˆşÿÿÿÿ8©¢£©ÿ1J$193bfd05-7688-4e57-a0a4-101e21850a49
+šcsharpsquid:S6667¸"JLogging in a catch clause should pass the caught exception as a parameter.(à¬Ìˆşÿÿÿÿ8©¢£©ÿ1J$50c22929-a421-40a3-9b08-3c68cc20ba4a
+csharpsquid:S6602¤"N"Find" method should be used instead of the "FirstOrDefault" extension method.(à†ï‹şÿÿÿÿ8ª¢£©ÿ1J$73372663-ee46-47a2-84e5-290f0bd98e4b
+csharpsquid:S2589ò"EChange this condition so that it does not always evaluate to 'False'.(²®¶ò8ª¢£©ÿ1J$be2e0134-34db-43cd-b231-0378274a633d
+‹csharpsquid:S2629b"<Don't use string interpolation in logging message templates.(ßÅ½ˆüÿÿÿÿ8ª¢£©ÿ1J$7526abc7-f526-4cf3-a31f-b8a1d47988c1
+Œcsharpsquid:S2629ˆ"<Don't use string concatenation in logging message templates.(â¥™ªúÿÿÿÿ8ª¢£©ÿ1J$a5e07a1f-8437-45c6-aa38-4642390028ca
+‡csharpsquid:S2629å"<Don't use string interpolation in logging message templates.(À®’¡8ª¢£©ÿ1J$06c3ac6d-9dc6-4d63-b117-d2bf6a0579e6
+†csharpsquid:S2629"<Don't use string concatenation in logging message templates.(û¨ã	8ª¢£©ÿ1J$34a61c18-1fc6-415b-a24b-ea8d5ede80b6
+‡csharpsquid:S2629¹"<Don't use string interpolation in logging message templates.(¥÷í‚8ª¢£©ÿ1J$7d5bd1fa-6847-455c-9026-4620bf9b9a82
+‡csharpsquid:S2629Å"<Don't use string concatenation in logging message templates.(´¨†Ù8ª¢£©ÿ1J$925b783f-dcb6-4d1c-a88b-fda601538352
+Œcsharpsquid:S2629×"<Don't use string concatenation in logging message templates.(éÿ˜ùÿÿÿÿ8«¢£©ÿ1J$0825e017-6fc5-4150-8147-aee0826540c7
+Œcsharpsquid:S2629ä"<Don't use string concatenation in logging message templates.(€€ü‘ûÿÿÿÿ8«¢£©ÿ1J$94723e80-7b34-4277-8dab-ab450257cb29
