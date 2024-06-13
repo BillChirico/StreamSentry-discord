@@ -30,7 +30,6 @@
     type: "DOCKERFILE"
     login: "billchirico"
     password: "secure!rcJIL4xuT+BoI17/bbpXGAtPkN7GNPb52hwDc5W97ghn+cDjxXoGjdmL2Yx6MeY8.Z177FY9LKmFi7mTo4jy1Bw=="
-    context_path: "StreamSentry-discord"
     docker_registry: "OTHER"
     registry: "https://ghcr.io"
     do_not_prune_images: true
