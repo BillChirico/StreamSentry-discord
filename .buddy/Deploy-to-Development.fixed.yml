@@ -34,7 +34,6 @@
     docker_registry: "OTHER"
     registry: "https://ghcr.io"
     do_not_prune_images: true
-    provenance: "MIN"
   - action: "Push Docker image"
     type: "DOCKER_PUSH"
     login: "billchirico"
